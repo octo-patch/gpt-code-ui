@@ -72,7 +72,7 @@ class TestMiniMaxModels(unittest.TestCase):
         "MINIMAX_API_KEY": "test-key",
     }, clear=False)
     def test_default_minimax_models(self):
-        """Default MiniMax models include M2.7 and M2.7-highspeed."""
+        """Default MiniMax models include M3, M2.7 and M2.7-highspeed; M3 is first."""
         # Remove custom MINIMAX_MODELS if set
         env = os.environ.copy()
         env.pop("MINIMAX_MODELS", None)
@@ -81,8 +81,11 @@ class TestMiniMaxModels(unittest.TestCase):
         with patch.dict(os.environ, env):
             mod = self._reload_main()
             model_names = [m["name"] for m in mod.AVAILABLE_MODELS]
+            self.assertIn("MiniMax-M3", model_names)
             self.assertIn("MiniMax-M2.7", model_names)
             self.assertIn("MiniMax-M2.7-highspeed", model_names)
+            # M3 should be first (default)
+            self.assertEqual(model_names[0], "MiniMax-M3")
 
     @patch.dict(os.environ, {
         "OPENAI_API_TYPE": "minimax",

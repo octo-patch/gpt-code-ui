@@ -38,6 +38,19 @@ def _reload_main_with_minimax():
 class TestMiniMaxLiveAPI(unittest.TestCase):
     """Integration tests that call the real MiniMax API."""
 
+    def test_generate_code_with_minimax_m3(self):
+        """MiniMax M3 generates Python code from a prompt."""
+        mod = _reload_main_with_minimax()
+        loop = asyncio.new_event_loop()
+        code, text, status = loop.run_until_complete(
+            mod.get_code("Print 'hello world'", model="MiniMax-M3")
+        )
+        loop.close()
+
+        self.assertEqual(status, 200)
+        self.assertIsNotNone(code)
+        self.assertIn("hello", code.lower())
+
     def test_generate_code_with_minimax_m27(self):
         """MiniMax M2.7 generates Python code from a prompt."""
         mod = _reload_main_with_minimax()
@@ -68,8 +81,11 @@ class TestMiniMaxLiveAPI(unittest.TestCase):
         """The /models endpoint returns MiniMax models when configured."""
         mod = _reload_main_with_minimax()
         model_names = [m["name"] for m in mod.AVAILABLE_MODELS]
+        self.assertIn("MiniMax-M3", model_names)
         self.assertIn("MiniMax-M2.7", model_names)
         self.assertIn("MiniMax-M2.7-highspeed", model_names)
+        # M3 should be the default (first in list)
+        self.assertEqual(model_names[0], "MiniMax-M3")
 
 
 if __name__ == "__main__":

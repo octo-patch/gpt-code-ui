@@ -54,7 +54,7 @@ elif PROVIDER == "azure":
     except KeyError as e:
         raise RuntimeError('AZURE_OPENAI_DEPLOYMENTS environment variable not set') from e
 elif PROVIDER == "minimax":
-    AVAILABLE_MODELS = json.loads(os.environ.get("MINIMAX_MODELS", '''[{"displayName": "MiniMax-M2.7", "name": "MiniMax-M2.7"}, {"displayName": "MiniMax-M2.7-highspeed", "name": "MiniMax-M2.7-highspeed"}]'''))
+    AVAILABLE_MODELS = json.loads(os.environ.get("MINIMAX_MODELS", '''[{"displayName": "MiniMax-M3", "name": "MiniMax-M3"}, {"displayName": "MiniMax-M2.7", "name": "MiniMax-M2.7"}, {"displayName": "MiniMax-M2.7-highspeed", "name": "MiniMax-M2.7-highspeed"}]'''))
 else:
     raise ValueError(f'Invalid OPENAI_API_TYPE: {PROVIDER}')
 

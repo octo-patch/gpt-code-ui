@@ -51,7 +51,7 @@ For Azure OpenAI Services, there are also other configurable variables like depl
 Note that model selection on the UI is currently not supported for Azure OpenAI Services.
 
 ### Using MiniMax AI
-[MiniMax](https://www.minimaxi.com/) models (M2.7, M2.7-highspeed) are supported via the OpenAI-compatible API. Set `OPENAI_API_TYPE=minimax` and provide your `MINIMAX_API_KEY`. See `.env.minimax-example` for a complete configuration template.
+[MiniMax](https://www.minimaxi.com/) models (M3, M2.7, M2.7-highspeed) are supported via the OpenAI-compatible API. Set `OPENAI_API_TYPE=minimax` and provide your `MINIMAX_API_KEY`. See `.env.minimax-example` for a complete configuration template. The default model is `MiniMax-M3` (512K context, up to 128K output, supports image input).
 
 MiniMax can also be auto-detected: if `MINIMAX_API_KEY` is set and `OPENAI_API_KEY` is not, MiniMax is used automatically.
 
